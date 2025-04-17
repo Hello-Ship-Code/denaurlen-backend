@@ -24,8 +24,6 @@ export const loginController: RequestHandler = async (req: Request, res: Respons
     // res.cookie('userToken', setUser(user))
     const token = setUser(user)
 
-    res.setHeader('Authorization', `bearer ${token}`)
-
     res.status(200).json({
       message: 'Login successful',
       token,
