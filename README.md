@@ -1,66 +1,91 @@
-## Mongo Morph 🧬
+## 📱 DENAURLEN Backend
 
-This is a **template repository** designed for quick and efficient project setup. It includes a pre-configured **TypeScript + Node.js** environment, allowing you to start coding immediately without repetitive setup tasks.
+This is a **template backend repository** designed for fast and scalable API development using **TypeScript + Node.js + Express + MongoDB**. It includes a fully functional authentication system, structured routing, and middleware support to help you build and deploy production-ready applications quickly.
 
 ### 🛠 Features
 
-- **TypeScript + Node.js** setup
-- **Pre-configured `tsconfig.json`** with sensible defaults
-- **ESLint & Prettier** for consistent code formatting (optional)
-- **Pre-configured `package.json`** for easy dependency management
+- **TypeScript + Node.js + Express** setup
+- **Authentication with JWT & Middleware**
+- **Modular controller structure with API separation**
+- **MongoDB integration-ready**
+- **Pre-configured ESLint & Prettier** for code formatting
+- **Sensible `tsconfig.json` defaults for clean builds**
+
+---
+
+### 🧩 API Routes
+
+#### 🔐 **Public Routes** (`/api`)
+- `POST /api/signup` – Register a new user via `signupController`
+- `POST /api/login` – Authenticate and get token via `loginController`
+
+#### 🔒 **Protected Routes** (`/user`) – Requires Auth Token
+- `POST /user/categories` – Manage categories via `categoriesController`
+- `GET /user/friends` – Get user’s friends list via `userController`
+- `POST /user/usercats` – Link categories to a user via `userCategoriesController`
+
+> All `/user/*` routes are secured with `authMiddleware`.
+
+---
 
 ### 🔑 Generate a 32-Character JWT Secret
 
-Use the following command to generate a **secure 32-character JWT secret**:
+Run the following command to generate a secure token for JWT:
 
 ```bash
 openssl rand -base64 32
 ```
 
+---
+
 ### 🚀 Getting Started
 
 #### 1️⃣ Clone the Repository
 
-```sh
-git clone https://github.com/your-username/template-repo.git my-project
-cd my-project
+```bash
+git clone https://github.com/your-username/denaurlen-backend.git
+cd denaurlen-backend
 ```
 
-#### 2️⃣ Initialize TypeScript
+#### 2️⃣ Initialize TypeScript (if not already initialized)
 
-```sh
+```bash
 tsc --init
 ```
 
 #### 3️⃣ Install Dependencies
 
-```sh
+```bash
 npm install
 ```
 
 #### 4️⃣ Run the Project
 
-```sh
+```bash
 npx ts-node src/index.ts
 ```
+
+---
 
 ### 📂 Folder Structure
 
 ```
-my-project
-│── src
-│   ├── index.ts  # Entry point
-│── package.json
-│── tsconfig.json
-│── .gitignore
+denaurlen-backend
+│
+├── src
+│   ├── index.ts                 # Entry point
+│   ├── routes/app-router.ts     # Route configuration
+│   ├── controllers/api/         # API Controllers
+│   ├── middlewares/             # Auth & other middleware
+│
+├── package.json
+├── tsconfig.json
+├── .eslintrc / .prettierrc
+├── .gitignore
 ```
+
+---
 
 ### 📜 License
 
 This project is licensed under the **MIT License**.
-
-**Let's get started! 🚀🚀**
-
----
-
-Let me know if you need further improvements! 😊
