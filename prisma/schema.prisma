@@ -45,7 +45,8 @@ model UserWallet {
 model Categories {
   id          String         @id @default(auto()) @map("_id") @db.ObjectId
   name        String         @unique
-  description String
+  src         String
+  priority    Int
   icon        String
   users       UserCategory[]
   createdAt   DateTime       @default(now())

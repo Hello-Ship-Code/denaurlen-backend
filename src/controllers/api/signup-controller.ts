@@ -14,7 +14,10 @@ export const signupController: RequestHandler = (req: Request, res: Response) =>
 
     userSignup(userData)
 
-    res.send('Hello DENAURLEN!')
+    res.status(200).json({
+      message: "user signup success"
+    })
+
   } catch (error) {
     throw new HttpError(`${error}`, 503)
   }
