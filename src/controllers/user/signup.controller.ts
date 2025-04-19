@@ -1,10 +1,10 @@
 import type { NextFunction, Request, RequestHandler, Response } from 'express'
 
+import { findUserByEmail } from '../../lib/user/findUserByEmail'
+import { userSignup } from '../../logic/registerUser'
 import { userValidation } from '../../validation/user/user-validation'
 
-import { findUserByEmail } from '../../utils/user/find-by-mail'
-import { userSignupTypes } from '../../utils/user/user-types'
-import { userSignup } from '../services/user-signup'
+import { UserSignupPayload } from '../../types/auth.types'
 
 export const signupController: RequestHandler = async (
   req: Request,
@@ -12,7 +12,7 @@ export const signupController: RequestHandler = async (
   next: NextFunction,
 ) => {
   try {
-    const userData: userSignupTypes = userValidation.parse(req.body)
+    const userData: UserSignupPayload = userValidation.parse(req.body)
 
     const existingUser = await findUserByEmail(`${userData.email}`)
 
@@ -24,7 +24,7 @@ export const signupController: RequestHandler = async (
     const user = await userSignup(userData)
 
     res.status(200).json({
-      message: 'user signup success',
+      message: 'user signup successfully 🎉',
       user,
     })
   } catch (error) {

@@ -1,4 +1,4 @@
-export type userSignupTypes = {
+export type UserSignupPayload = {
   email: string
   fullName: string
   userName: string
@@ -9,13 +9,7 @@ export type userSignupTypes = {
   terms: boolean
 }
 
-export type userCategory = {
-  name: string
-  icon: string
-  description: string
-}
-
-export type userLoginTypes = {
+export type UserLoginPayload = {
   email: string
   password: string
 }

@@ -1,10 +1,10 @@
-import { prisma } from '../../config/db.config'
+import { prisma } from '../config/database'
+import { toLowerCase } from '../lib/toLowersCase'
+import { hashPassword } from '../lib/user/hashPassword'
 
-import { hashPassword } from '../../utils/user/password-hashing'
-import { toLowerCase } from '../../utils/user/to-lower-case'
-import { userSignupTypes } from '../../utils/user/user-types'
+import { UserSignupPayload } from '../types/auth.types'
 
-export const userSignup = async (userData: userSignupTypes) => {
+export const userSignup = async (userData: UserSignupPayload) => {
   return prisma.user.create({
     data: {
       email: userData.email,

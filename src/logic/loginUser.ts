@@ -1,8 +1,9 @@
-import { findUserByEmail } from '../../utils/user/find-by-mail'
-import { verifyPassword } from '../../utils/user/password-hashing'
-import { userLoginTypes } from '../../utils/user/user-types'
+import { findUserByEmail } from '../lib/user/findUserByEmail'
+import { verifyPassword } from '../lib/user/hashPassword'
 
-export const userLogin = async (userData: userLoginTypes) => {
+import { UserLoginPayload } from '../types/auth.types'
+
+export const userLogin = async (userData: UserLoginPayload) => {
   const user = await findUserByEmail(`${userData.email}`, {
     id: true,
     email: true,

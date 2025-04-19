@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express'
 
-import { getUser } from '../utils/JWT/auth'
+import { getUser } from '../lib/JWT/JWT-auth'
 
 export const authMiddleware: RequestHandler = (req, res, next) => {
   try {

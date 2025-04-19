@@ -1,8 +1,9 @@
 import type { NextFunction, Request, RequestHandler, Response } from 'express'
 
-import { setUser } from '../../utils/JWT/auth'
-import { userLoginTypes } from '../../utils/user/user-types'
-import { userLogin } from '../services/user-login'
+import { setUser } from '../../lib/JWT/JWT-auth'
+import { userLogin } from '../../logic/loginUser'
+
+import { UserLoginPayload } from '../../types/auth.types'
 
 export const loginController: RequestHandler = async (
   req: Request,
@@ -10,9 +11,9 @@ export const loginController: RequestHandler = async (
   next: NextFunction,
 ) => {
   try {
-    const userData: userLoginTypes = req.body
+    const userData: UserLoginPayload = req.body
 
-    const requiredFields: (keyof userLoginTypes)[] = ['email', 'password']
+    const requiredFields: (keyof UserLoginPayload)[] = ['email', 'password']
 
     for (const field of requiredFields) {
       if (!userData[field]) {

@@ -1,9 +1,9 @@
 import express from 'express'
 
-import { env } from './config/env.config'
-import { errorMiddleware } from './middlewares/error-middleware'
+import { env } from './config/environment'
+import { errorMiddleware } from './middlewares/error'
 
-import { appRouter } from './routes/router'
+import { appRouter } from './routers/index.routes'
 
 const app = express()
 

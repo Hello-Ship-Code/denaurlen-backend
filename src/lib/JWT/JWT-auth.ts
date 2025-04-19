@@ -1,6 +1,6 @@
 import jwt, { type JwtPayload } from 'jsonwebtoken'
 
-import { env } from '../../config/env.config'
+import { env } from '../../config/environment'
 
 interface DecodeUser extends JwtPayload {
   id: string
