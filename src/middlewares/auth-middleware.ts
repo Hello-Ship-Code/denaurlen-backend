@@ -1,20 +1,26 @@
 import { RequestHandler } from 'express'
 
-import HttpError from '../utils/HttpError'
 import { getUser } from '../utils/JWT/auth'
 
 export const authMiddleware: RequestHandler = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization
-    const headerToken = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null
+    const headerToken =
+      authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null
 
     if (!headerToken) {
-      throw new HttpError('Authentication token not found', 401)
+      res.status(401).json({
+        message: 'Authentication token not found',
+      })
+      return
     }
 
     const user = getUser(headerToken)
     if (!user) {
-      throw new HttpError('Invalid or expired token', 403)
+      res.status(403).json({
+        message: 'Invalid or expired token',
+      })
+      return
     }
 
     res.locals.user = user

@@ -1,31 +1,20 @@
-import { prisma } from '../../config/db.config'
-
-import HttpError from '../../utils/HttpError'
+import { findUserByEmail } from '../../utils/user/find-by-mail'
 import { verifyPassword } from '../../utils/user/password-hashing'
 import { userLoginTypes } from '../../utils/user/user-types'
 
 export const userLogin = async (userData: userLoginTypes) => {
-  try {
-    if (!userData) throw new HttpError('we need data to login', 404)
+  const user = await findUserByEmail(`${userData.email}`, {
+    id: true,
+    email: true,
+    userName: true,
+    fullName: true,
+    password: true,
+  })
 
-    const user = await prisma.user.findFirst({
-      where: { email: userData.email },
-      select: {
-        id: true,
-        email: true,
-        userName: true,
-        fullName: true,
-        password: true,
-      },
-    })
-
-    if (!user || !(await verifyPassword(userData.password, user.password))) {
-      throw new HttpError('Invalid email or password', 401)
-    }
-
-    const { password, ...safeUser } = user
-    return safeUser
-  } catch (error) {
-    throw new HttpError(`${error}`, 501)
+  if (!user || !(await verifyPassword(userData.password, user.password))) {
+    return null
   }
+
+  const { password, ...safeUser } = user
+  return safeUser
 }

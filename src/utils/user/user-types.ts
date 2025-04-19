@@ -6,6 +6,7 @@ export type userSignupTypes = {
   gender: string
   dob: Date
   password: string
+  terms: boolean
 }
 
 export type userCategory = {

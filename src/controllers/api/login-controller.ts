@@ -1,23 +1,30 @@
-import type { Request, RequestHandler, Response } from 'express'
+import type { NextFunction, Request, RequestHandler, Response } from 'express'
 
-import HttpError from '../../utils/HttpError'
 import { setUser } from '../../utils/JWT/auth'
 import { userLoginTypes } from '../../utils/user/user-types'
 import { userLogin } from '../services/user-login'
 
-export const loginController: RequestHandler = async (req: Request, res: Response) => {
+export const loginController: RequestHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const userData: userLoginTypes = req.body
 
-    if (!userData) {
-      res.redirect('/login')
-      return
+    const requiredFields: (keyof userLoginTypes)[] = ['email', 'password']
+
+    for (const field of requiredFields) {
+      if (!userData[field]) {
+        res.status(400).json({ error: `${field} is required for login` })
+        return
+      }
     }
 
     const user = await userLogin(userData)
 
     if (!user) {
-      res.redirect('/login')
+      res.status(401).json({ error: 'Invalid email or password' })
       return
     }
 
@@ -25,7 +32,7 @@ export const loginController: RequestHandler = async (req: Request, res: Respons
     const token = setUser(user)
 
     res.status(200).json({
-      message: 'Login successful',
+      message: 'Login successful 🥳',
       token,
       user: {
         id: user.id,
@@ -34,6 +41,6 @@ export const loginController: RequestHandler = async (req: Request, res: Respons
       },
     })
   } catch (error) {
-    throw new HttpError(`${error}`, 501)
+    next(error)
   }
 }
