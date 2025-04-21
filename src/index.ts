@@ -1,3 +1,4 @@
+import cors from 'cors'
 import express from 'express'
 
 import { env } from './config/environment'
@@ -6,6 +7,8 @@ import { errorMiddleware } from './middlewares/error'
 import { appRouter } from './routers/index.routes'
 
 const app = express()
+
+app.use(cors())
 
 // middleware
 app.use(express.urlencoded({ extended: true }))

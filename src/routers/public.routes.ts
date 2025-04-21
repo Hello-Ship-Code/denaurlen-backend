@@ -1,13 +1,15 @@
 import { Router } from 'express'
 
-import { categoriesController } from '../controllers/user/category.controller'
+import { categoriesController } from '../controllers/categories/category.controller'
+import { getCategoriesController } from '../controllers/categories/getCategories.controller'
 import { loginController } from '../controllers/user/login.controller'
 import { signupController } from '../controllers/user/signup.controller'
 
-const apiRouters = Router()
+const publicRouters = Router()
 
-apiRouters.post('/signup', signupController)
-apiRouters.post('/login', loginController)
-apiRouters.post('/categories', categoriesController)
+publicRouters.post('/signup', signupController)
+publicRouters.post('/login', loginController)
+publicRouters.post('/categories', categoriesController)
+publicRouters.get('/get-categories', getCategoriesController)
 
-export { apiRouters }
+export { publicRouters }

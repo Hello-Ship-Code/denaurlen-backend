@@ -64,15 +64,15 @@ export const userValidation = z.object({
       }),
   ),
 
-  terms: z.preprocess(
-    (val) => {
-      if (typeof val === 'string') {
-        return val === 'true' // convert to boolean
-      }
-      return val
-    },
-    z.boolean({ required_error: 'Terms acceptance is required' }).refine((val) => val === true, {
-      message: 'You must accept the terms and conditions',
-    }),
-  ),
+  // terms: z.preprocess(
+  //   (val) => {
+  //     if (typeof val === 'string') {
+  //       return val === 'true' // convert to boolean
+  //     }
+  //     return val
+  //   },
+  //   z.boolean({ required_error: 'Terms acceptance is required' }).refine((val) => val === true, {
+  //     message: 'You must accept the terms and conditions',
+  //   }),
+  // ),
 })

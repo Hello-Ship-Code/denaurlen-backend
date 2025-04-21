@@ -1,3 +1,4 @@
+
 export type UserSignupPayload = {
   email: string
   fullName: string
@@ -6,7 +7,7 @@ export type UserSignupPayload = {
   gender: string
   dob: Date
   password: string
-  terms: boolean
+  // terms: boolean
 }
 
 export type UserLoginPayload = {

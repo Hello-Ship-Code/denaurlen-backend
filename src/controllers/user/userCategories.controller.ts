@@ -7,7 +7,7 @@ export const userCategoriesController: RequestHandler = async (req, res, next) =
   try {
     const userId = res.locals.user?.id
 
-    const catsIds: string[] = req.body.categoriesIds
+    const catsIds: string[] = req.body
 
     if (!catsIds || catsIds.length !== 10) {
       res.status(409).json({ message: 'Please select exactly 10 categories' })
